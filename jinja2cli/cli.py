@@ -164,6 +164,9 @@ def cli(opts, args):
         raise formats[format][2](u'%s ...' % data[:60])
         sys.exit(1)
 
+    if opts.include_env:
+        data.update(dict(os.environ))
+
     extensions = []
     for ext in opts.extensions:
         # Allow shorthand and assume if it's not a module
@@ -185,6 +188,8 @@ def main():
                       dest='format', action='store', default='auto')
     parser.add_option('-e', '--extension', help='extra jinja2 extensions to load',
                       dest='extensions', action='append', default=['do'])
+    parser.add_option('--include-env', help='Import environment variables to your input data',
+                       dest='include_env', action="store_true")
     opts, args = parser.parse_args()
 
     # Dedupe list
