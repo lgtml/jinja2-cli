@@ -164,6 +164,9 @@ def cli(opts, args):
         raise formats[format][2](u'%s ...' % data[:60])
         sys.exit(1)
 
+    # Include os.environ
+    data.update(environ=dict(os.environ))
+
     extensions = []
     for ext in opts.extensions:
         # Allow shorthand and assume if it's not a module
