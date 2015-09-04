@@ -164,8 +164,8 @@ def cli(opts, args):
         raise formats[format][2](u'%s ...' % data[:60])
         sys.exit(1)
 
-    if opts.include_env:
-        data.update(dict(os.environ))
+    # Include os.environ
+    data.update(environ=dict(os.environ))
 
     extensions = []
     for ext in opts.extensions:
